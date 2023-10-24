@@ -43,6 +43,30 @@ function animateMove(startRow, startCol, endRow, endCol) {
             endCell.appendChild(pieceImg); // Move the piece to the destination cell
         });
     }
+
+    // Create a connection to the WebSocket server
+    const socket = new WebSocket('ws://localhost:8080');
+
+    // Connection established
+    socket.addEventListener('open', (event) => {
+        console.log('Connected to the WebSocket server');
+        socket.send('Hello Server!'); // Send a message to the server
+    });
+
+    // Listen for messages from the server
+    socket.addEventListener('message', (event) => {
+        console.log('Message from server:', event.data);
+    });
+
+    // Listen for potential errors
+    socket.addEventListener('error', (error) => {
+        console.error('WebSocket Error:', error);
+    });
+
+    // Listen for close event
+    socket.addEventListener('close', (event) => {
+        console.log('Disconnected from the WebSocket server');
+    });
 }
 
 
@@ -74,3 +98,21 @@ function getRandomPiece() {
 
 let pieces = [new Piece('white', 'Rook'), new Piece('white', 'Knight'), new Piece('white', 'Bishop'), new Piece('white', 'Queen'), new Piece('white', 'King'), new Piece('black', 'Bishop'), new Piece('black', 'Knight'), new Piece('black', 'Rook'), new Piece('black', 'Queen'), new Piece('black', 'King'), new Piece('white', 'Pawn'), new Piece('black', 'Pawn')];
 pieces.forEach(piece => { console.log(piece.name) });
+
+function openTab(evt, tabName) {
+    // Get all elements with class="tab-content" and hide them
+    let tabContent = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tab-link" and remove the class "active"
+    let tabLinks = document.getElementsByClassName("tab-link");
+    for (let i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}

@@ -27,3 +27,30 @@
     transition: all 0.5s; /* Smooth transition for animations */
     position: relative; /* This will be helpful for animating */
 }
+
+.tab-content {
+    display: none;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.tab-link {
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.tab-link:hover {
+    background-color: #ddd;
+}
+
+.tab-link.active {
+    background-color: #ccc;
+}
+
+.tab-content.active {
+    display: block;
+}
