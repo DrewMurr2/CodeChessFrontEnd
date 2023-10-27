@@ -1,7 +1,7 @@
 //@ts-check
 export class Auth {
     /** 
-     * @type {{email:string, url:string} | null}
+     * @type {{email:string, url:string, token:string} | null}
      */
     static __userData = null
     static getUserData() {
@@ -14,10 +14,19 @@ export class Auth {
         }
     }
 
+    static addToUserData(obj) {
+        if (this.__userData)
+            this.__userData = { ...this.__userData, ...obj }
+        this.setUserData(this.__userData)
+    }
     static setUserData(userData) {
         this.__userData = userData
         if (userData)
             localStorage.setItem('userData', JSON.stringify(userData))
+    }
+    static clearUserData() {
+        this.__userData = null
+        localStorage.removeItem('userData')
     }
 }
 

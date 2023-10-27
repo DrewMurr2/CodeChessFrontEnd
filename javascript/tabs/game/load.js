@@ -1,60 +1,47 @@
-export function GameLoad() {
-    renderBoard();
-    console.log("GameLoad")
+//@ts-check
+import { GamePlay } from "./Gameplay.js";
+import { gameServerWebsocket } from "../../lib/GameServerWebsocketAPI.js";
+import { GameDom } from "./GameDom.js";
+export let GameplayOptions = {
+    consoleLogMyMoves: false,
+    consoleLogOpponentMoves: false,
+    autoPlayNextGame: false
 }
 
-let boardData
+export function GameLoad() {
+    GameDom.renderBoard();
+    attachButtonPresses();
+    console.log("GameLoad")
+    gameServerWebsocket.connect()
+}
+
 let killZoneSize = 6
 
-function renderBoard() {
-    const boardSize = 8
-    const board = document.getElementById('chessBoard');
-    board.innerHTML = '';  // Clear the board
-    function applylablesStyling(cell) {
-        cell.className = 'label';  // Assuming you might style these differently
-        cell.style.border = 'none';  // Remove border
-        cell.style.textAlign = 'center';  // Center the text
-    }
 
+function attachButtonPresses() {
+    //@ts-ignore
+    document.getElementById('play')
+        .addEventListener('click', GamePlay.playGame);
+    //@ts-ignore
+    document.getElementById('console-log-game-history')
+        .addEventListener('click', () => console.log('gameHistory'));
+    //@ts-ignore
+    document.getElementById('console-log-move-history')
+        .addEventListener('click', () => console.log('moveHistory'));
+    //@ts-ignore
+    document.getElementById('console-log-game-board')
+        .addEventListener('click', () => console.log('boardData'));
 
+    //@ts-ignore
+    document.getElementById('console-log-opponent-strategy')
+        .addEventListener('click', () => console.log('opponentStrategy'));
 
-    // Function to get column label ('a' to 'h' for standard 8x8 board)
-    function getColumnLabel(col) {
-        return String.fromCharCode('a'.charCodeAt(0) + col);
-    }
-
-    for (let i = 0; i < boardSize; i++) {
-        const row = board.insertRow();
-
-        // Add row labels on the left side
-        const labelCell = row.insertCell();
-        labelCell.innerHTML = boardSize - i;  // Chess boards count from 8 at the top to 1 at the bottom
-        applylablesStyling(labelCell);
-
-        for (let j = 0; j < boardSize; j++) {
-            const cell = row.insertCell();
-            const isBlack = (i + j) % 2 === 1;
-            cell.className = isBlack ? 'black' : 'white';
-            if (boardData && boardData[i][j].piece) {
-                cell.innerHTML = `<img src="media/${boardData[i][j].piece.color + boardData[i][j].piece.type}.png" alt="${boardData[i][j].piece.color + boardData[i][j].piece.type}" width="30px">`;
-            }
-        }
-        //insert kill zone - 6 cells
-        for (let j = 0; j < killZoneSize; j++) {
-            const cell = row.insertCell();
-            applylablesStyling(cell);
-        }
-    }
-
-    // Add column labels at the bottom
-    const footerRow = board.insertRow();
-    let bottomLeftCell = footerRow.insertCell()
-    bottomLeftCell.innerHTML = '';  // Empty cell for bottom-left corner
-    applylablesStyling(bottomLeftCell);
-    for (let j = 0; j < boardSize; j++) {
-        const cell = footerRow.insertCell();
-        cell.innerHTML = getColumnLabel(j);
-        applylablesStyling(cell);
-    }
+    //@ts-ignore
+    document.getElementById('console-log-my-moves')
+        // @ts-ignore
+        .addEventListener('change', function () { GameplayOptions.consoleLogMyMoves = this.checked; });
+    // @ts-ignore
+    document.getElementById('console-log-opponent-moves').addEventListener('change', function () { GameplayOptions.consoleLogOpponentMoves = this.checked; });
+    // @ts-ignore
+    document.getElementById('auto-play-next-game').addEventListener('change', function () { GameplayOptions.autoPlayNextGame = this.checked; });
 }
-

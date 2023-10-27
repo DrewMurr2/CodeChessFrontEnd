@@ -35,4 +35,11 @@ export function LoginLoad() {
         });
 
     });
+    document.getElementById("logOut").addEventListener("click", function (event) {
+        event.preventDefault();
+        Auth.clearUserData()
+        NavDom.setLoggedInAsEmail()
+        NavDom.setPlayerConnectedToUrl()
+        alert("Well bye then.")
+    });
 }

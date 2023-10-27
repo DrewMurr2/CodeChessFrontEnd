@@ -16,7 +16,7 @@ export const LOGIN_TAB_HTML = /*html*/`
 </div>
 </form>
 <br>
-<button onclick="logOut()">Log out</button>
+<button id="logOut">Log out</button>
 <br>
 <p>Don't have an account?</p>
 <a href="signup.html">Sign Up</a>`

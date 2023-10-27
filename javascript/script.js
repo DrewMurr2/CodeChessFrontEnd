@@ -98,28 +98,28 @@ function logOut() {
 // }
 
 
-function animateMove(startRow, startCol, endRow, endCol) {
-    const board = document.getElementById('chessBoard');
-    const startCell = board.rows[startRow].cells[startCol];
-    const endCell = board.rows[endRow].cells[endCol];
-    const pieceImg = startCell.querySelector('img');
+// function animateMove(startRow, startCol, endRow, endCol) {
+//     const board = document.getElementById('chessBoard');
+//     const startCell = board.rows[startRow].cells[startCol];
+//     const endCell = board.rows[endRow].cells[endCol];
+//     const pieceImg = startCell.querySelector('img');
 
-    if (pieceImg) {
-        // Calculate the distances to move
-        const dx = endCell.getBoundingClientRect().left - startCell.getBoundingClientRect().left;
-        const dy = endCell.getBoundingClientRect().top - startCell.getBoundingClientRect().top;
+//     if (pieceImg) {
+//         // Calculate the distances to move
+//         const dx = endCell.getBoundingClientRect().left - startCell.getBoundingClientRect().left;
+//         const dy = endCell.getBoundingClientRect().top - startCell.getBoundingClientRect().top;
 
-        // Apply a transform to the piece to move it
-        pieceImg.style.transform = `translate(${dx}px, ${dy}px)`;
+//         // Apply a transform to the piece to move it
+//         pieceImg.style.transform = `translate(${dx}px, ${dy}px)`;
 
-        // After animation ends, we reset the position and move the piece to the destination cell
-        pieceImg.addEventListener('transitionend', function onTransitionEnd() {
-            pieceImg.removeEventListener('transitionend', onTransitionEnd); // Remove the listener to avoid multiple bindings
-            pieceImg.style.transform = ''; // Reset transform
-            endCell.appendChild(pieceImg); // Move the piece to the destination cell
-        });
-    }
-}
+//         // After animation ends, we reset the position and move the piece to the destination cell
+//         pieceImg.addEventListener('transitionend', function onTransitionEnd() {
+//             pieceImg.removeEventListener('transitionend', onTransitionEnd); // Remove the listener to avoid multiple bindings
+//             pieceImg.style.transform = ''; // Reset transform
+//             endCell.appendChild(pieceImg); // Move the piece to the destination cell
+//         });
+//     }
+// }
 // Create a connection to the WebSocket server
 const socket = new WebSocket('ws://' + BASE_URL);
 
