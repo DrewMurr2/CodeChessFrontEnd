@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Information Form</title>
+</head>
+<body>
+
+<form id="userInfoForm">
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required> <span>***I am not going to encrypt this password because I don't want to</span>
+    </div>
+     <div>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+    </div>
+    <div>
+        <label for="name">name:</label>
+        <input type="name" id="name" name="name" required>
+    </div>
+        <div>
+        <label for="more_about_you">Tell me more about you:</label>
+        <textarea id="more_about_you" name="more_about_you" rows="4" cols="50" required></textarea>
+    </div>
+    <div>
+        <label for="how_did_you_hear">How did you hear about this game:</label>
+        <textarea id="how_did_you_hear" name="how_did_you_hear" rows="4" cols="50" required></textarea>
+    </div>
+    <div>
+        <label for="experience_with_chess">Experience with Chess:</label>
+        <textarea id="experience_with_chess" name="experience_with_chess" rows="4" cols="50" required></textarea>
+    </div>
+    <div>
+        <label for="experience_programming">Experience in Programming:</label>
+        <textarea id="experience_programming" name="experience_programming" rows="4" cols="50" required></textarea>
+    </div>
+    <div>
+        <label for="experience_with_typescript">Experience with TypeScript:</label>
+        <textarea id="experience_with_typescript" name="experience_with_typescript" rows="4" cols="50" required></textarea>
+    </div>
+    <button type="submit">Submit</button>
+    <a href="/index.html">Back to login</a>
+</form>
+
+<script>
+
+const BASE_URL = "localhost:8081";
+document.getElementById("userInfoForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Capturing the form values
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var name = document.getElementById("name").value;
+    var experience_with_chess = document.getElementById("experience_with_chess").value;
+    var experience_programming = document.getElementById("experience_programming").value;
+    var experience_with_typescript = document.getElementById("experience_with_typescript").value;
+    var more_about_you = document.getElementById("more_about_you").value;
+    var how_did_you_hear = document.getElementById("how_did_you_hear").value;
+
+    // Checking if passwords match
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return; // Exit the function if passwords don't match
+    }
+
+
+
+    
+        // Creating a JSON object
+        var data = {
+            more_about_you,
+            how_did_you_hear,
+            email: email,
+            password: password,
+            name: name,
+            experience_with_chess: experience_with_chess,
+            experience_programming: experience_programming,
+            experience_with_typescript: experience_with_typescript
+        };
+    
+        // Sending a POST request
+        fetch("http://"+BASE_URL+"/createUser", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            if(data.success)
+            alert("You did it!\nNow go to the login page and login!")
+            else if (data.error)
+            alert(data.error)
+            else alert("Something went wrong")
+            console.log(data);
+        }).catch(function(error) {
+            console.log(error);
+        });
+
+});
+</script>
+
+</body>
+</html>

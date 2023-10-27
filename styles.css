@@ -1,7 +1,7 @@
 #chessBoard {
     border-collapse: collapse;
-    width: 320px; /* 8 squares * 40px each */
-    height: 320px;
+    width: 700px; /* 8 squares * 40px each */
+    height: 360px;
 }
 
 #chessBoard td {
@@ -41,6 +41,9 @@
     border: none;
     outline: none;
     transition: background-color 0.3s;
+        text-decoration: none; /* Remove underline from links */
+            color: black;
+
 }
 
 .tab-link:hover {
@@ -54,3 +57,11 @@
 .tab-content.active {
     display: block;
 }
+
+    .top-banner {
+        position: fixed; /* Fixed at the top */
+        top: 0;
+        width: 100%; /* Full width */
+        text-align: right; /* Align text to the right */
+        z-index: 1000; /* Ensures banner stays above other content */
+    }

@@ -7,52 +7,36 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="top-banner">
+    <span style="margin-right: 25px;" id="loggedInAs">not logged in</span>
+    <span style="margin-right: 25px;" id="connectedTo"> not connected </span>
+</div>
     <div class="tabs">
     <!-- Tab buttons -->
     <div class="tab-buttons">
-        <button class="tab-link active" onclick="openTab(event, 'Tab1')">Login</button>
-        <button class="tab-link" onclick="openTab(event, 'Tab2')">Setup</button>
-        <button class="tab-link" onclick="openTab(event, 'Tab3')">Instructions</button>
-        <button class="tab-link" onclick="openTab(event, 'Tab4')">Game</button>
-        <button class="tab-link" onclick="openTab(event, 'Tab5')">Stats</button>
-        <button class="tab-link" onclick="openTab(event, 'Tab6')">Vs Mode</button>
+        <button class="tab-link active" data-tab="LoginTab">Login</button>
+        <button class="tab-link" data-tab="SetupTab">Setup</button>
+        <button class="tab-link" data-tab="InstructionsTab">Instructions</button>
+        <button class="tab-link" data-tab="GameTab">Game</button>
+        <button class="tab-link" data-tab="StatsTab">Stats</button>
     </div>
     
     <!-- Tab content -->
-    <div id="Tab1" class="tab-content active">
-        <h2>Login</h2>
-        <p>This is the content for Tab 1.</p>
+    <div id="LoginTab" class="tab-content active">
     </div>
 
-    <div id="Tab2" class="tab-content">
-        <h2>Setup</h2>
-        <p>This is the content for Tab 2.</p>
+    <div id="SetupTab" class="tab-content">
     </div>
 
-    <div id="Tab3" class="tab-content">
-        <h2>Instructions</h2>
-        <p>This is the content for Tab 3.</p>
+    <div id="InstructionsTab" class="tab-content">
     </div>
 
-    <div id="Tab4" class="tab-content">
-        <h2>Game</h2>
-        <p>This is the content for Tab 3.</p>
-    <table id="chessBoard"></table>
-
+    <div id="GameTab" class="tab-content">
     </div>
-    </div>
-        <div id="Tab5" class="tab-content">
-        <h2>Stats</h2>
-        <p>This is the content for Tab 3.</p>
-    </div>
-       </div>
-        <div id="Tab6" class="tab-content">
-        <h2>Vs Mode</h2>
-        <p>You can't play Vs Mode until you beat the game.</p>
+    <div id="StatsTab" class="tab-content">
     </div>
 </div>
 
-
-    <script src="script.js"></script>
+    <script src="javascript/script.js" type="module"></script>
 </body>
 </html>
